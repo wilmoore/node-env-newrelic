@@ -38,7 +38,12 @@ function load() {
   settings.NEW_RELIC_ENABLED = true;
   debug(settings);
   set(settings);
-  return require('newrelic');
+
+  try {
+    return require('newrelic');
+  } catch(e) {
+    process.exit(1);
+  }
 }
 
 /**

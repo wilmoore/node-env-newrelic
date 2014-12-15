@@ -28,7 +28,7 @@ function reset() {
 
 function enable() {
   process.env.NEW_RELIC_ENVIRONMENTS = process.env.NODE_ENV;
-  process.env.NEW_RELIC_LICENSE_KEY = envc.LICENSE_KEY;
+  process.env.NEW_RELIC_LICENSE_KEY = process.env.LICENSE_KEY;
 }
 
 /*!
