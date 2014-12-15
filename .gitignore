@@ -1,0 +1,6 @@
+components
+build
+newrelic_agent.log
+node_modules
+npm-debug.log
+.env

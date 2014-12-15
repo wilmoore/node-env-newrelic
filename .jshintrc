@@ -1,0 +1,17 @@
+{
+  "esnext": true,
+  "eqeqeq": true,
+  "freeze": true,
+  "laxbreak": true,
+  "node": true,
+  "plusplus": true,
+  "quotmark": "single",
+  "strict": true,
+  "undef": true,
+  "validthis": true,
+  "predef": [
+    "context",
+    "describe",
+    "it"
+  ]
+}

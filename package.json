@@ -1,0 +1,73 @@
+{
+  "name": "env-newrelic",
+  "version": "0.0.0",
+  "keywords": [
+    "newrelic",
+    "env",
+    "envc",
+    "environments",
+    "environment",
+    "12factor"
+  ],
+  "description": "Load newrelic module only in specified environments.",
+  "author": "Wil Moore III <wil.moore@wilmoore.com>",
+  "contributors": [
+    {
+      "name": "Wil Moore III",
+      "email": "wil.moore@wilmoore.com"
+    }
+  ],
+  "watches": [
+    {
+      "script": "test",
+      "patterns": [
+        "*.js",
+        "lib/**/*.js",
+        "test/**/*.js"
+      ]
+    },
+    {
+      "script": "lint",
+      "patterns": [
+        "*.js",
+        "lib/**/*.js",
+        "test/**/*.js"
+      ]
+    }
+  ],
+  "scripts": {
+    "lint": "jshint *.js",
+    "test": "node test.js test/**/*.js | faucet",
+    "watch": "rerun-script"
+  },
+  "files": [
+    "*.json",
+    "*.js",
+    "license",
+    "readme.md"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wilmoore/node-env-newrelic"
+  },
+  "bugs": {
+    "url": "https://github.com/wilmoore/node-env-newrelic/issues"
+  },
+  "devDependencies": {
+    "envc": "^2.0.0",
+    "faucet": "0.0.1",
+    "jshint": "^2.5.10",
+    "rerun-script": "^0.4.1",
+    "tape": "^3.0.3"
+  },
+  "dependencies": {
+    "debug": "^2.1.0",
+    "env-accessors": "^0.2.1",
+    "env-allowed": "^0.1.1",
+    "newrelic": "^1.14.2",
+    "package.root": "^0.2.0"
+  },
+  "config": {},
+  "license": "MIT"
+}
