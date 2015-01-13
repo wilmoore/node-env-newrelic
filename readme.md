@@ -8,60 +8,64 @@
 
 ## Why?
 
-So you don't have to do this:
+0. You avoid writing and maintaining the following:
 
-    if (process.env.NODE_ENV === 'production') {
-      require('newrelic');
-    }
+        if (process.env.NODE_ENV === 'production') require('newrelic');
 
-With the above methodology, you'll be forced to push a code change for something that should be configuration driven.
+    > With the above methodology, you'll be forced to push code to change behavior that should be configuration driven. See **The Twelve-Factor App** page titled [Store config in the environment].
 
-See **The Twelve-Factor App** page titled [Store config in the environment](http://12factor.net/config).
+0. You avoid configuring a `newrelic.js` file for each app and start with sane defaults
+
+        NEW_RELIC_HOME = Project Root Directory
+        NEW_RELIC_ENABLED = true
+        NEW_RELIC_APP_NAME = `package.name` + `-` + `process.env.NODE_ENV`
+        NEW_RELIC_LOG_LEVEL = 'info'
 
 ## How it works
 
-- You set environment variables:
-  - `NEW_RELIC_LICENSE_KEY`
-  - `NEW_RELIC_ENVIRONMENTS`
-- Initialize with:
-  - `require('env-newrelic')()`.
-  - or `var newrelic = require('env-newrelic')()`.
+##### Enable
 
-## Defaults
+Set the `NEW_RELIC_LICENSE_KEY` environment variable.
 
-Once initialized, the following the following environment variables will be set:
+##### Disable
 
-    NEW_RELIC_HOME = PACKAGE ROOT
-    NEW_RELIC_ENABLED = true
-    NEW_RELIC_APP_NAME = package.name
-    NEW_RELIC_LOG_LEVEL = 'info'
-    NEW_RELIC_NO_CONFIG_FILE = true
+Set the `NEW_RELIC_DISABLED` environment variable to a truthy value (i.e. `true`, `yes`, `1`, etc.).
 
-> `NEW_RELIC_NO_CONFIG_FILE` is `true` if a `newrelic.js` file is found in your package root.
+##### Initialize
 
-A list of more environment variables can be found in the documentation page [Configuring Node.js with environment variables](https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/configuring-nodejs-environment-variables).
+    require('env-newrelic')()
+    # or
+    var newrelic = require('env-newrelic')()
+
+> `NEW_RELIC_NO_CONFIG_FILE` will be set to `true` if a `newrelic.js` file is found in your package root.
+
+A list of more environment variables can be found in the documentation page [Configuring Node.js with environment variables].
 
 ## Overrides (newrelic.js)
 
 While the environment variables make using a `newrelic.js` file optional, there may be situations where you need it. A list of more configuration parameters can be found in the documentation page [Node.js agent configuration](https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration).
 
-## Example
+## Example Configuration
 
-For most common scenarios, a `newrelic.js` file is not needed and can be configured as follows:
+For most apps, a `newrelic.js` file is not needed
 
 ###### .env
 
-    NEW_RELIC_ENVIRONMENTS="production,staging"
     NEW_RELIC_LICENSE_KEY="…"
 
-###### add `env-newrelic` to your program.
+###### .env.test
 
-    require('env-newrelic');
+    NEW_RELIC_DISABLED=true
 
-###### Start your program with `NODE_ENV` set to a value in `NEW_RELIC_ENVIRONMENTS`.
+## More Configuration
 
-    NODE_ENV=staging npm start
+- [Configuring Node.js with environment variables]
+- [Store config in the environment]
 
 ## License
 
   [MIT](license)
+
+
+[Configuring Node.js with environment variables]: https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/configuring-nodejs-environment-variables
+[Store config in the environment]: http://12factor.net/config

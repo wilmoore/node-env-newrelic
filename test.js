@@ -22,20 +22,36 @@ if (!process.env.NODE_ENV) {
 }
 
 function reset() {
-  delete process.env.NEW_RELIC_ENVIRONMENTS;
+  delete process.env.NEW_RELIC_ENABLED;
+  delete process.env.NEW_RELIC_DISABLED;
   delete process.env.NEW_RELIC_LICENSE_KEY;
 }
 
 function enable() {
-  process.env.NEW_RELIC_ENVIRONMENTS = process.env.NODE_ENV;
   process.env.NEW_RELIC_LICENSE_KEY = process.env.LICENSE_KEY;
+}
+
+function disable() {
+  delete process.env.NEW_RELIC_ENABLED;
+  process.env.NEW_RELIC_DISABLED = true;
 }
 
 /*!
  * tests.
  */
 
-test('disabled by default', function (t) {
+test('enabled by default', function (t) {
+  enable();
+  var agent = newrelic();
+
+  t.assert(process.env.NEW_RELIC_ENABLED);
+
+  reset();
+  t.end();
+});
+
+test('disabled when NEW_RELIC_DISABLED is set', function (t) {
+  disable();
   var agent = newrelic();
 
   t.false(process.env.NEW_RELIC_ENABLED);

@@ -4,10 +4,12 @@
  * imports.
  */
 
-var allowed = require('env-allowed');
 var assert = require('env-accessors').assert;
+var boolean = require('boolean');
 var debug = require('debug')('env-newrelic');
+var format = require('util').format;
 var fs = require('fs');
+var get = require('env-accessors').get;
 var path = require('path');
 var root = require('package.root');
 var set = require('env-accessors').set;
@@ -18,17 +20,26 @@ var set = require('env-accessors').set;
 
 module.exports = load;
 
+/*!
+ * init.
+ */
+
+var env = get('NODE_ENV');
+var tag = env ? format('-%s', env) : '';
+var app = root.package.name + tag;
+
 /**
  * Load `newrelic` module and set defaults (can override with `newrelic.js`).
  */
 
 function load() {
   var settings = defaults();
+  var disabled = boolean(get('NEW_RELIC_DISABLED'));
 
-  // environment not configured for `newrelic`.
+  // terminate if disabled.
 
-  if (!allowed('NEW_RELIC_ENVIRONMENTS')) {
-    debug(settings);
+  if (disabled) {
+    debug('defaults:', settings);
     return settings;
   }
 
@@ -36,7 +47,7 @@ function load() {
 
   assert('NEW_RELIC_LICENSE_KEY');
   settings.NEW_RELIC_ENABLED = true;
-  debug(settings);
+  debug('defaults:', settings);
   set(settings);
 
   try {
@@ -55,7 +66,7 @@ function defaults() {
   return {
     NEW_RELIC_HOME: home,
     NEW_RELIC_ENABLED: false,
-    NEW_RELIC_APP_NAME: root.name,
+    NEW_RELIC_APP_NAME: app,
     NEW_RELIC_LOG_LEVEL: 'info',
     NEW_RELIC_NO_CONFIG_FILE: fs.existsSync(path.resolve(home, 'newrelic.js')) || true
   };
