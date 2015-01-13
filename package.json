@@ -62,9 +62,9 @@
     "tape": "^3.0.3"
   },
   "dependencies": {
+    "boolean": "0.0.1",
     "debug": "^2.1.0",
     "env-accessors": "^0.2.1",
-    "env-allowed": "^0.1.1",
     "newrelic": "^1.14.2",
     "package.root": "^0.2.0"
   },
