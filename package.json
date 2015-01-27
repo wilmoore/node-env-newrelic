@@ -9,7 +9,7 @@
     "environment",
     "12factor"
   ],
-  "description": "Load newrelic module only in specified environments.",
+  "description": "Load newrelic in a 12-factor environment with sane defaults.",
   "author": "Wil Moore III <wil.moore@wilmoore.com>",
   "contributors": [
     {

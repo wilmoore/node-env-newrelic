@@ -2,7 +2,7 @@
 
 [![Build Status](http://img.shields.io/travis/wilmoore/node-env-newrelic.svg)](https://travis-ci.org/wilmoore/node-env-newrelic) [![NPM version](http://img.shields.io/npm/v/env-newrelic.svg)](https://www.npmjs.org/package/env-newrelic) [![NPM downloads](http://img.shields.io/npm/dm/env-newrelic.svg)](https://www.npmjs.org/package/env-newrelic) [![LICENSE](http://img.shields.io/npm/l/env-newrelic.svg)](license)
 
-> Load newrelic in a 12-factor environment with sane default.
+> Load newrelic in a 12-factor environment with sane defaults.
 
     $ npm install env-newrelic --save
 
